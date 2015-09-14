@@ -6097,6 +6097,9 @@ a.active {
       margin: -1px;
       max-width: 50px; }
 
+.highlight {
+  background-color: #9CFF0D; }
+
 .flex-row {
   display: -webkit-flex;
   display: -ms-flexbox;
