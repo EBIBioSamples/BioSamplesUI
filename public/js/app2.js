@@ -12341,6 +12341,7 @@ new Vue({
 		searchTerm: 'Liver',
 		queryTerm: '',
 		filterTerm: '',
+		useFuzzy: false,
 		pageNumber: 0,
 		samplesToRetrieve: 10, //Need to be linked to the number of items
 		resultsNumber: '',
@@ -12377,13 +12378,14 @@ new Vue({
 				var resultsInfo = results.response;
 				var highLights = results.highlighting;
 				var docs = resultsInfo.docs;
+				var hlDocs = this.associateHighlights(docs, highLights);
 
 				this.queryTerm = this.searchTerm;
 				this.resultsNumber = resultsInfo.numFound;
-				this.queryResults = docs;
+				this.queryResults = hlDocs;
 				this.biosamples = [];
-				for (var i = 0; i < docs.length; i++) {
-					this.biosamples.push(new Biosample(docs[i].accession, docs[i].product_type, docs[i].description, docs[i].release_date));
+				for (var i = 0; i < hlDocs.length; i++) {
+					this.biosamples.push(new Biosample(hlDocs[i].accession, hlDocs[i].product_type, hlDocs[i].description, hlDocs[i].release_date));
 				}
 
 				// this.listOptions.elements = this.biosamples;
@@ -12392,11 +12394,26 @@ new Vue({
 			});
 		},
 
+		associateHighlights: function associateHighlights(docs, highlights) {
+			for (var i = 0; i < docs.length; i++) {
+				var currDoc = docs[i];
+				var hlElem = highlights[currDoc.id];
+				for (var el in hlElem) {
+					if (hlElem.hasOwnProperty(el)) {
+						currDoc[el] = hlElem[el].join("");
+					}
+				}
+				docs[i] = currDoc;
+			}
+			return docs;
+		},
+
 		getQueryParameters: function getQueryParameters() {
 			return {
 				'term': this.searchTerm,
 				'rows': this.samplesToRetrieve,
-				'start': this.pageNumber
+				'start': this.pageNumber,
+				'fuzzy': this.useFuzzy
 			};
 		}
 	}
@@ -12572,7 +12589,7 @@ module.exports = '<!-- <div id="pagination" v-show="needPagination()"> -->\n<div
 })();
 
 },{"./products.list.template.html":84,"underscore":2}],84:[function(require,module,exports){
-module.exports = '<div v-repeat="element: elements | filterBy filterTerm">\n	<div class="panel panel-default">\n		<div class="panel-heading">\n			\n			<span class="h3">\n				{{element.getTitle()}}\n			</span>\n			<span class="h5 label label-success">\n				{{element.getType()}}\n			</span>\n			<!-- <p>{{options.name}} - {{options.orig}} - {{options.value}}</p> -->\n\n		</div>\n		<div class="panel-body">\n			{{element.getDescription()}}\n		</div>\n		<div class="panel-footer">\n			<span class="small">Released on: {{element.getReleaseDate()}}</span>\n		</div>\n	</div>\n</div>';
+module.exports = '<div v-repeat="element: elements | filterBy filterTerm">\n	<div class="panel panel-default">\n		<div class="panel-heading">\n			\n			<span class="h3" v-html="element.getTitle()"></span>\n			<span class="h5 label label-success" v-html="element.getType()"></span>\n			<!-- <p>{{options.name}} - {{options.orig}} - {{options.value}}</p> -->\n\n		</div>\n		<div class="panel-body" v-html="element.getDescription()"></div>\n		<div class="panel-footer">\n			<span class="small">Released on: {{element.getReleaseDate()}}</span>\n		</div>\n	</div>\n</div>';
 },{}],85:[function(require,module,exports){
 'use strict';
 

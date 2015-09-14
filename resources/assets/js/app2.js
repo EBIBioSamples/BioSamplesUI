@@ -10,6 +10,7 @@ new Vue ({
 		searchTerm: 'Liver',
 		queryTerm:'',
 		filterTerm: '',
+		useFuzzy: false,
 		pageNumber: 0,
 		samplesToRetrieve: 10, //Need to be linked to the number of items
 		resultsNumber: '',
@@ -47,16 +48,17 @@ new Vue ({
 					var resultsInfo = results.response;
 					var highLights = results.highlighting;
 					var docs = resultsInfo.docs;
+					var hlDocs = this.associateHighlights(docs,highLights);
 
 					this.queryTerm = this.searchTerm;
 					this.resultsNumber = resultsInfo.numFound;
-					this.queryResults = docs;
+					this.queryResults = hlDocs;
 					this.biosamples = [];
-					for (var i= 0; i<docs.length;i++) {
-						this.biosamples.push(new Biosample(docs[i].accession,
-													   docs[i].product_type,
-													   docs[i].description,
-													   docs[i].release_date));
+					for (var i = 0; i < hlDocs.length; i++) {
+						this.biosamples.push(new Biosample(hlDocs[i].accession,
+													   hlDocs[i].product_type,
+													   hlDocs[i].description,
+													   hlDocs[i].release_date));
 					}
 
 					// this.listOptions.elements = this.biosamples;
@@ -68,11 +70,26 @@ new Vue ({
 				});
 		},
 
+		associateHighlights: function(docs,highlights) {
+			for (var i = 0; i < docs.length; i++) {
+				var currDoc = docs[i];
+				var hlElem = highlights[currDoc.id];
+				for (var el in hlElem) {
+					if (hlElem.hasOwnProperty(el)) {
+						currDoc[el] = hlElem[el].join("");
+					}
+				}
+				docs[i] = currDoc;
+			}
+			return docs;
+		},
+
 		getQueryParameters: function() {
 			return {
 				'term': this.searchTerm,
 				'rows': this.samplesToRetrieve,
-				'start': this.pageNumber
+				'start': this.pageNumber,
+				'fuzzy': this.useFuzzy
 			};
 		}
 	}
