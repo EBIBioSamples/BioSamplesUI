@@ -1,0 +1,21 @@
+<div v-repeat="element: _options.elements | filterBy filterTerm">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			
+			<span class="h3">
+				{{element.getTitle()}}
+			</span>
+			<span class="h5 label label-success">
+				{{element.getType()}}
+			</span>
+			<!-- <p>{{options.name}} - {{options.orig}} - {{options.value}}</p> -->
+
+		</div>
+		<div class="panel-body">
+			{{element.getDescription()}}
+		</div>
+		<div class="panel-footer">
+			<span class="small">Released on: {{element.getReleaseDate()}}</span>
+		</div>
+	</div>
+</div>

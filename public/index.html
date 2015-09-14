@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Biosamples Database</title>
+        <link rel="stylesheet" href="./css/main.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div id="samples">
+                <h1>Biosample Database</h1>
+
+                <div class="row">
+                    <form>
+                        <fieldset>
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <input type="text" 
+                                           class="form-control"
+                                           placeholder="Start your search"
+                                           v-model="searchTerm"
+                                           v-on="keyup: querySamples | key 'enter'">
+                                </div>          
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <button type='submit' 
+                                            id="search" 
+                                            class="btn btn-primary"
+                                            style="width: 100%"
+                                            v-on="click: querySamples">
+
+                                        Search
+                                    </button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+
+                <results total-results="{{resultsNumber}}"
+                         displayed-results="{{samplesToRetrieve}}"
+                         filter-term="{{@ listOptions.filterTerm}}">
+                </results>    
+
+                <div class="row">
+                    <h3>Search results for: <i>{{queryTerm}}</i></h3>
+                </div>
+
+                <div class="row">
+                    <component is="biosamples-list" 
+                               options="{{listOptions}}"}}>
+                    </component>
+                </div>
+                <!-- <biosamples-table elements="{{biosamples}}"
+                            columns="{{biosamples[0].getPropertiesName()}}"
+                            filter-term="{{filterTerm}}">
+                <biosamples-table> -->
+<!--                 <div class="row">
+                    <biosamples-list elements="{{biosamples}}"
+                                 filter-term="{{filterTerm}}">
+                    </biosamples-list>    
+                </div> -->
+                
+            </div>
+        </div>
+        <script src="./js/app2.js"></script>
+    </body>
+</html>

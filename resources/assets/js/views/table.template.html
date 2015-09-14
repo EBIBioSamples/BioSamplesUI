@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="form-group col-md-8">
+        <input type="text" name="searchTerm" id="inputSearchTerm" class="form-control" value="" placeholder="Filter results..." v-model="filterTerm">
+    </div>
+
+    <div class="col-md-2">
+        <pagination total-results="{{totalResults}}"
+                    displayed-results="{{displayedResults}}"
+                    style="float:right">
+        </pagination>
+    </div>
+    <div class="col-md-2">
+        <items-dropdown choices="{{availableItemsPerPage}}"
+                    text-filler="Items per page: "
+                    style="float:right">
+        </items-dropdown>    
+    </div>
+</div>
