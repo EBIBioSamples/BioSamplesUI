@@ -9,17 +9,17 @@ new Vue ({
 	data: {
 		searchTerm: 'Liver',
 		queryTerm:'',
-		// filterTerm: '',
+		filterTerm: '',
 		pageNumber: 0,
 		samplesToRetrieve: 10, //Need to be linked to the number of items
 		resultsNumber: '',
 		queryResults: {},
 		biosamples: [],
 		tableColumns: ['Accession','Description','Type'],
-		listOptions: {
-			filterTerm: '',
-			elements: []
-		}
+		// listOptions: {
+		// 	filterTerm: '',
+		// 	elements: []
+		// }
 	},
 
 	components: {
@@ -59,7 +59,7 @@ new Vue ({
 													   docs[i].release_date));
 					}
 
-					this.listOptions.elements = this.biosamples;
+					// this.listOptions.elements = this.biosamples;
 
 
 				})

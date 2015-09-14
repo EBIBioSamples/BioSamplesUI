@@ -12340,19 +12340,19 @@ new Vue({
 	data: {
 		searchTerm: 'Liver',
 		queryTerm: '',
-		// filterTerm: '',
+		filterTerm: '',
 		pageNumber: 0,
 		samplesToRetrieve: 10, //Need to be linked to the number of items
 		resultsNumber: '',
 		queryResults: {},
 		biosamples: [],
-		tableColumns: ['Accession', 'Description', 'Type'],
-		listOptions: {
-			filterTerm: '',
-			elements: []
-		}
+		tableColumns: ['Accession', 'Description', 'Type']
 	},
 
+	// listOptions: {
+	// 	filterTerm: '',
+	// 	elements: []
+	// }
 	components: {
 		'results': require('./views/table.js'),
 		'biosamplesTable': require('./components/productsTable/ProductsTable.js'),
@@ -12386,7 +12386,7 @@ new Vue({
 					this.biosamples.push(new Biosample(docs[i].accession, docs[i].product_type, docs[i].description, docs[i].release_date));
 				}
 
-				this.listOptions.elements = this.biosamples;
+				// this.listOptions.elements = this.biosamples;
 			}).error(function (data, status, response) {
 				console.log(status);
 			});
@@ -12563,35 +12563,11 @@ module.exports = '<!-- <div id="pagination" v-show="needPagination()"> -->\n<div
 
 	var _ = require('underscore');
 
-	var defaultOpts = {
-		elements: '',
-		filterTerm: 'Hello'
-	};
-
 	module.exports = {
 
 		template: require('./products.list.template.html'),
 
-		props: ['options'],
-
-		data: function data() {
-			return {
-				tempOpts: {
-					elements: [],
-					filterTerm: ''
-				}
-			};
-		},
-
-		computed: {
-			_options: function _options() {
-				return _.extend(this.tempOpts, this.options);
-			}
-		},
-
-		ready: function ready() {
-			console.log(this._options);
-		}
+		props: ['filterTerm', 'elements']
 	};
 })();
 
