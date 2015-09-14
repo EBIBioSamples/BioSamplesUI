@@ -12572,7 +12572,7 @@ module.exports = '<!-- <div id="pagination" v-show="needPagination()"> -->\n<div
 })();
 
 },{"./products.list.template.html":84,"underscore":2}],84:[function(require,module,exports){
-module.exports = '<div v-repeat="element: _options.elements | filterBy filterTerm">\n	<div class="panel panel-default">\n		<div class="panel-heading">\n			\n			<span class="h3">\n				{{element.getTitle()}}\n			</span>\n			<span class="h5 label label-success">\n				{{element.getType()}}\n			</span>\n			<!-- <p>{{options.name}} - {{options.orig}} - {{options.value}}</p> -->\n\n		</div>\n		<div class="panel-body">\n			{{element.getDescription()}}\n		</div>\n		<div class="panel-footer">\n			<span class="small">Released on: {{element.getReleaseDate()}}</span>\n		</div>\n	</div>\n</div>';
+module.exports = '<div v-repeat="element: elements | filterBy filterTerm">\n	<div class="panel panel-default">\n		<div class="panel-heading">\n			\n			<span class="h3">\n				{{element.getTitle()}}\n			</span>\n			<span class="h5 label label-success">\n				{{element.getType()}}\n			</span>\n			<!-- <p>{{options.name}} - {{options.orig}} - {{options.value}}</p> -->\n\n		</div>\n		<div class="panel-body">\n			{{element.getDescription()}}\n		</div>\n		<div class="panel-footer">\n			<span class="small">Released on: {{element.getReleaseDate()}}</span>\n		</div>\n	</div>\n</div>';
 },{}],85:[function(require,module,exports){
 'use strict';
 
