@@ -7,9 +7,9 @@
 			<!-- <p>{{options.name}} - {{options.orig}} - {{options.value}}</p> -->
 
 		</div>
-		<div class="panel-body" v-html="element.getDescription()"></div>
+		<div class="panel-body" v-html="element.getDescription() | excerpt"></div>
 		<div class="panel-footer">
-			<span class="small">Released on: {{element.getReleaseDate()}}</span>
+			<span class="small">Released on: <span v-text="element.getReleaseDate()"></span></span>
 		</div>
 	</div>
 </div>
