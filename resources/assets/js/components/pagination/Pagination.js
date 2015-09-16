@@ -26,7 +26,7 @@ module.exports = {
 
 	methods: {
 		createPaginationWith: function(currentPage) {
-			console.log(this.totalPages);
+			this.$dispatch('page-changed',currentPage);	
 			var finalPaginationArray = [];
 			var totalPages = this.totalPages;
 			if (totalPages < 5) {
