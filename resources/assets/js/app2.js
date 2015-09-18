@@ -3,11 +3,16 @@ var Biosample = require('./Biosample.js');
 var _ = require('underscore');
 Vue.use(require('vue-resource'));
 
+Vue.config.debug = true;
+
+Vue.filter('excerpt',require('./filters/excerptFilter.js'));
+
+
 new Vue ({
-	el: "#samples",
+	el: "#app",
 
 	data: {
-		searchTerm: 'Liver',
+		searchTerm: '',
 		queryTerm:'',
 		filterTerm: '',
 		useFuzzy: false,
@@ -17,21 +22,17 @@ new Vue ({
 		queryResults: {},
 		biosamples: [],
 		tableColumns: ['Accession','Description','Type'],
-		// listOptions: {
-		// 	filterTerm: '',
-		// 	elements: []
-		// }
 	},
 
 	components: {
-		'results': require('./views/table.js'),
 		'biosamplesTable': require('./components/productsTable/ProductsTable.js'),
-		'biosamplesList': require('./components/productsList/ProductsList.js')		
-		// 'pagination': require('./components/pagination/Pagination.js'),
+		'biosamplesList': require('./components/productsList/ProductsList.js'),
+		'pagination': require('./components/pagination/Pagination.js'),
+		'itemsDropdown': require('./components/itemsDropdown/ItemsDropdown.js')
 	},
 
 	ready: function() {
-		this.querySamples();
+		this.registerEventHandlers();
 	},
 
 	methods: {
@@ -61,7 +62,6 @@ new Vue ({
 													   hlDocs[i].release_date));
 					}
 
-					// this.listOptions.elements = this.biosamples;
 
 
 				})
@@ -71,15 +71,17 @@ new Vue ({
 		},
 
 		associateHighlights: function(docs,highlights) {
-			for (var i = 0; i < docs.length; i++) {
-				var currDoc = docs[i];
-				var hlElem = highlights[currDoc.id];
-				for (var el in hlElem) {
-					if (hlElem.hasOwnProperty(el)) {
-						currDoc[el] = hlElem[el].join("");
+			if (typeof highlights !== 'undefined' && highlights.length > 0) {
+				for (var i = 0; i < docs.length; i++) {
+					var currDoc = docs[i];
+					var hlElem = highlights[currDoc.id];
+					for (var el in hlElem) {
+						if (hlElem.hasOwnProperty(el)) {
+							currDoc[el] = hlElem[el].join("");
+						}
 					}
+					docs[i] = currDoc;
 				}
-				docs[i] = currDoc;
 			}
 			return docs;
 		},
@@ -91,6 +93,19 @@ new Vue ({
 				'start': this.pageNumber,
 				'fuzzy': this.useFuzzy
 			};
+		},
+
+		registerEventHandlers: function() {
+			this.$on('page-changed', function(newPage) {
+				this.pageNumber = newPage;
+				this.querySamples();
+			});
+			this.$on('dd-item-chosen', function(item) {
+				var previousValue = this.samplesToRetrieve;
+				this.samplesToRetrieve = item;
+				this.pageNumber = 1;
+				this.querySamples();
+			});
 		}
 	}
 });
