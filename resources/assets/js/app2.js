@@ -12,7 +12,7 @@ new Vue ({
 	el: "#app",
 
 	data: {
-		searchTerm: '',
+		searchTerm: 'Liver',
 		queryTerm:'',
 		filterTerm: '',
 		useFuzzy: false,
@@ -32,6 +32,7 @@ new Vue ({
 	},
 
 	ready: function() {
+		this.querySamples();
 		this.registerEventHandlers();
 	},
 
@@ -54,13 +55,14 @@ new Vue ({
 					this.queryTerm = this.searchTerm;
 					this.resultsNumber = resultsInfo.numFound;
 					this.queryResults = hlDocs;
-					this.biosamples = [];
-					for (var i = 0; i < hlDocs.length; i++) {
-						this.biosamples.push(new Biosample(hlDocs[i].accession,
-													   hlDocs[i].product_type,
-													   hlDocs[i].description,
-													   hlDocs[i].release_date));
-					}
+					// this.biosamples = [];
+					// for (var i = 0; i < hlDocs.length; i++) {
+					// 	this.biosamples.push(new Biosample(hlDocs[i].accession,
+					// 								   hlDocs[i].product_type,
+					// 								   hlDocs[i].description,
+					// 								   hlDocs[i].release_date));
+					// }
+					this.biosamples = hlDocs;
 
 
 

@@ -1,15 +1,8 @@
-<div v-repeat="element: elements | filterBy filterTerm">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			
-			<span class="h3" v-html="element.getTitle()"></span>
-			<span class="h5 label label-success" v-html="element.getType()"></span>
-			<!-- <p>{{options.name}} - {{options.orig}} - {{options.value}}</p> -->
-
-		</div>
-		<div class="panel-body" v-html="element.getDescription() | excerpt"></div>
-		<div class="panel-footer">
-			<span class="small">Released on: <span v-text="element.getReleaseDate()"></span></span>
-		</div>
-	</div>
+<div v-repeat="element: elements">
+	<component is="biosample"
+			   accession="{{element.submission_acc}}"
+			   title="{{element.sample}}"
+			   description="{{element.submission_description}}"
+			   release-date="{{element.sample_release_date}}">
+	</component>
 </div>
