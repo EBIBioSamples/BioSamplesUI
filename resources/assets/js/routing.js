@@ -23,13 +23,13 @@ var router = new VueRouter({
 // We'll talk about nested routes later.
 router.map({
     '/main': {
-        component: require('../views/MainPage/MainPage.js')
+        component: require('./views/MainPage/MainPage.js')
     },
     '/other': {
-        component: require('../views/OtherPage/OtherPage.js')
+        component: require('./views/OtherPage/OtherPage.js')
     },
     '/biosamples/:id': {
-    	component: require('../views/Biosamples/SingleBiosample.js')
+    	component: require('./views/Biosamples/SingleBiosample.js')
     }
 });
 
