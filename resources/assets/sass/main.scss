@@ -141,6 +141,25 @@ a.active {
   background-color: #9CFF0D;
 }
 
+// .v-align {
+//   position: relative;
+//   top: 50%;
+//   transform: translateY(-50%);
+// }
+
+.v-align-children {
+   // display:table;
+   & * {
+      vertical-align: middle;
+   }
+}
+
+a.v-link-active {
+  color: red;
+  font-weight: bold;
+  text-decoration: none;
+}
+
 @import 'grid/flexbox';
 
 
