@@ -68,7 +68,7 @@ module.exports = {
 		},
 
 		associateHighlights: function(docs,highlights) {
-			if (typeof highlights !== 'undefined' && highlights.length > 0) {
+			if (typeof highlights !== 'undefined' && Object.keys(highlights).length > 0) {
 				for (var i = 0; i < docs.length; i++) {
 					var currDoc = docs[i];
 					var hlElem = highlights[currDoc.id];
