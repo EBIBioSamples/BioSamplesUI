@@ -6,6 +6,9 @@ var VueResource = require('vue-resource');
 Vue.use(VueResource);
 Vue.use(VueRouter);
 
+// Filters
+Vue.filter('excerpt',require('./filters/excerptFilter.js'));
+
 // Router options - Routes
 var router = new VueRouter({
 	hashbang: false
