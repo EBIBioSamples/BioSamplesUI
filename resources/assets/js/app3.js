@@ -6,13 +6,14 @@ var VueResource = require('vue-resource');
 Vue.use(VueResource);
 Vue.use(VueRouter);
 
-
 // Router options - Routes
 var router = new VueRouter({
 	hashbang: false
 });
 require('./routes.js')(router);
 
-var App = Vue.extend({});
+var App = Vue.extend({
+	debug: true
+});
 router.start(App,"#app");
 
