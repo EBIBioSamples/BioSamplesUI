@@ -21,14 +21,14 @@
 				type: String,
 				default: 'Sample'
 			},
-			releaseDate: {
+			date: {
 				type: String
 			}
 		},
 
 		computed: {
 			itemPage: function() {
-				return '/sample/' + this.title;
+				return '/sample/' + this.accession;
 			}
 		}
 	};
