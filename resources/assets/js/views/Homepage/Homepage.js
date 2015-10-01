@@ -38,7 +38,7 @@ module.exports = {
 			}
 
 			var queryParams = this.getQueryParameters();
-			var server = 'http://localhost:8080/home/query';
+			var server = 'http://localhost:8080/api/query';
 
 			this.$http.get(server,queryParams)
 				.success(function(results){

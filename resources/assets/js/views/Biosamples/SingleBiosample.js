@@ -44,7 +44,7 @@
 
 		methods: {
 			querySample: function(id) {
-				var server = 'http://localhost:8080/home/query/'+id;
+				var server = 'http://localhost:8080/api/query/'+id;
 
 				this.$http.get(server)
 					.success(function(results){
