@@ -1,8 +1,8 @@
 <div v-repeat="element: elements">
 	<component is="biosample"
-			   accession="{{element.submission_acc}}"
-			   title="{{element.sample_acc}}"
-			   description="{{element.submission_description}}"
-			   release-date="{{element.sample_release_date}}">
+			   accession="{{element.accession}}"
+			   title="{{element.name}}"
+			   description="{{element.description}}"
+			   release-date="{{element.update_date}}">
 	</component>
 </div>
