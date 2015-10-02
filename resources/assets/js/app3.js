@@ -8,6 +8,7 @@ Vue.use(VueRouter);
 
 // Filters
 Vue.filter('excerpt',require('./filters/excerptFilter.js'));
+Vue.component('badge', require('./components/badge/Badge.js'));
 
 // Router options - Routes
 var router = new VueRouter({
