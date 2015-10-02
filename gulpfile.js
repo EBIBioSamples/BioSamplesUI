@@ -12,7 +12,7 @@ elixir(function(mix) {
 	      open: false
 	    })
 	 	.sass('main.scss')
-	 	.browserify('app3.js')
+	 	.browserify('testbadge.js')
 	 	.scripts('vue.js','public/js/all_vue.js');
 });
 
