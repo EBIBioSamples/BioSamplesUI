@@ -27,9 +27,9 @@
 
 	}
 
-
 	module.exports = {
 		template: require("./biosample.view.html"),
+		// template: "<p>Hello sample</p>",
 
 		data: function() {
 			return {
@@ -52,20 +52,24 @@
 						var resultsInfo = results.response;
 						var docs = resultsInfo.docs;
 						if (docs.length > 0) {
-							this.sample = docs[0];
+							var sample = docs[0];
 							var allProperties = [];
-							for(var propertyName in this.sample) {
-								if (this.sample.hasOwnProperty(propertyName)) {
+							for(var propertyName in sample) {
+								if (sample.hasOwnProperty(propertyName)) {
 									allProperties.push(propertyName);
 								}
 							}
 							var pubProp = publicProperties(allProperties,unwantedProperties);
 							this.sampleProperties = pubProp.get();
+							this.sample = sample;
 						}
 					})
 					.error(function(data,status,response){
 						console.log(status);
 					});
+			},
+			test: function() {
+				console.log(this.querySample(0));
 			}
 		}
 	};

@@ -1,5 +1,4 @@
 <h1>{{$route.params.id}}</h1>
-<p v-repeat="prp: sampleProperties">
-	<span class="h3">{{prp}}:</span><span class="h4">{{sample[prp]}}</span>
+<p v-for="prop in sampleProperties">
+	<span class="h3">{{prop}}:</span><span class="h4">{{sample[prop]}}</span>
 </p>
-<pre>{{sampleProperties | json}}</pre>

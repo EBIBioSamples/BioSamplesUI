@@ -4,15 +4,16 @@
     </div>
 
     <div class="col-md-2">
-        <pagination total-results="{{totalResults}}"
-                    displayed-results="{{displayedResults}}"
-                    currentPage="{{@currentPage}}"
+        <pagination v-bind:totalResults="totalResults"
+                    v-bind:displayedResults="displayedResults"
+                    v-bind:currentPage.sync="currentPage"
                     style="float:right">
         </pagination>
     </div>
     <div class="col-md-2">
-        <items-dropdown choices="{{availableItemsPerPage}}"
-                    text-filler="Items per page: "
+        <items-dropdown 
+                    v-bind:choices="availableItemsPerPage"
+                    v-textFiller="Items per page: "
                     style="float:right">
         </items-dropdown>    
     </div>

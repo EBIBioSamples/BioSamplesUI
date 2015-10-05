@@ -12,7 +12,7 @@
 			'biosample': require('../product/Product.js')
 		},
 
-		props: ['filterTerm','elements']
+		props: ['elements']
 	};
 })();
 

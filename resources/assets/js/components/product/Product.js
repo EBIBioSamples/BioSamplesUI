@@ -24,6 +24,7 @@
 			date: {
 				type: String
 			}
+			
 		},
 
 		computed: {
