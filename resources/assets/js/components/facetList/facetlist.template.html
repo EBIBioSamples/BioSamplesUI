@@ -1,0 +1,13 @@
+<div v-if="hasFacets()" class="panel panel-default">
+    <div class="panel-heading">
+        <h5>{{title | capitalize}}</h5>
+    </div>
+    <div class="panel-body">
+        <ul v-for="key in keys">
+            <li>
+               <span class="h5">{{key}}</span>
+               <span class="label label-info">{{values[$index]}}</span>
+            </li>
+        </ul>
+    </div>
+</div>
