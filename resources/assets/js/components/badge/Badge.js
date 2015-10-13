@@ -3,12 +3,11 @@ module.exports = {
 	template: "<img :src='url' />",
 				
 	props: {
-		key: String,
-		value: String,
-		color: String,
+		key: {},
+		value: {},
+		color: {},
 		style: {
 			type: String,
-			required: true,
 			default: "flat",
 			validator: function(value) {
 				
