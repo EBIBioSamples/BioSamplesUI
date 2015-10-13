@@ -56,6 +56,59 @@
                                        v-model="useFuzzy" 
                                        v-on:change="querySamples"> 
                             </form>
+                            <component is="facet" title="Content Type" 
+                                    :keys="facets.types.keys" 
+                                    :values="facets.types.vals">
+                            </component>
+                            <component is="facet" title="Organism" 
+                                    :keys="facets.organisms.keys" 
+                                    :values="facets.organisms.vals">
+                            </component>
+                            <component is="facet" title="Organ" 
+                                    :keys="facets.organs.keys" 
+                                    :values="facets.organs.vals">
+                            </component>
+                            <component is="facet" title="Test" :keys="facets.test.keys" :values="facets.organs.vals">
+                            </component>
+                            <!-- <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h5>Content type</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <ul v-for="key in facets.types.keys">
+                                        <li>
+                                           <span class="h5" >{{key}}</span>
+                                           <span class="label label-info">{{facets.types.vals[$index]}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div> -->
+                            <!-- <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h5>Organism</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <ul v-for="key in facets.organisms.keys">
+                                        <li>
+                                           <span class="h5" >{{key}}</span>
+                                           <span class="label label-info">{{facets.organisms.vals[$index]}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div> -->
+                            <!-- <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h5>Organ</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <ul v-for="key in facets.organs.keys">
+                                        <li>
+                                           <span class="h5" >{{key}}</span>
+                                           <span class="label label-info">{{facets.organs.vals[$index]}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div> -->
                         </div>
                         <div class="panel-footer">
                             <div class="row">

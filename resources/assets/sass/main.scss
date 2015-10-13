@@ -162,6 +162,10 @@ a.v-link-active {
 
 @import 'grid/flexbox';
 
+.badge-container {
+   margin: 5px 0;
+}
+
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
