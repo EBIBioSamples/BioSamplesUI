@@ -3,10 +3,10 @@
         <h5>{{title | capitalize}}</h5>
     </div>
     <div class="panel-body">
-        <ul v-for="key in keys">
-            <li>
+        <ul class="list-group">
+            <li v-for="key in keys" class="list-group-item">
                <span class="h5">{{key}}</span>
-               <span class="label label-info">{{values[$index]}}</span>
+               <span class="badge">{{values[$index]}}</span>
             </li>
         </ul>
     </div>

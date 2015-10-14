@@ -36,7 +36,8 @@
 				default: 'Sample'
 			},
 			date: {
-				type: String
+				type: String,
+				default: ''
 			},
 			labels: {
 				type: Object,

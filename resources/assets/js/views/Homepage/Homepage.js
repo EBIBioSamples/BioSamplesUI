@@ -1,6 +1,5 @@
-(function(){
+(function() {
 	"use strict";
-
 
 	var _ = require("underscore");
 	var Biosample = require('../../components/Biosample.js');
@@ -146,5 +145,4 @@
 			}
 		}
 	};
-
 })();
