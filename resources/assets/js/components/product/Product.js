@@ -24,8 +24,7 @@
 				required: true
 			},
 			title: {
-				type: String,
-				default: 'Untitled'
+				default: ''
 			},
 			description: {
 				type: String,

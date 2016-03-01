@@ -1,18 +1,21 @@
 var elixir = require('laravel-elixir');
 
-require('laravel-elixir-browser-sync-simple');
+// require('laravel-elixir-browser-sync-simple');
+require('laravel-elixir-vueify');
+
 
 elixir(function(mix) {
 	mix.browserSync({
 	      port: 9000,
+	      proxy: '',
 	      server: {
 	      	baseDir: "public",
 	      	directory: true,
 	      },
-	      open: false
+	      open: false,
+	      files: "public/**/*"
 	    })
-	 	.sass('main.scss')
-	 	.browserify('app3.js')
-	 	.scripts('vue.js','public/js/all_vue.js');
+	 	.sass('main_samelf.scss')
+	 	.browserify('searchComponents.js')
 });
 

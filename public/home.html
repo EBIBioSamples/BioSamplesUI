@@ -3,7 +3,7 @@
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
+<!-- Consider adding an manifest.eppcache: h5bp.com/d/Offline -->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
@@ -24,6 +24,7 @@
 
   <!-- CSS: implied media=all -->
   <!-- CSS concatenated and minified via ant build script-->
+
   <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/boilerplate-style.css">
   <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-global.css" type="text/css" media="screen">
   <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-visual.css" type="text/css" media="screen">
@@ -31,8 +32,10 @@
   
   <!-- you can replace this with [projectname]-colours.css. See http://frontier.ebi.ac.uk/web/style/colour for details of how to do this -->
   <!-- also inform ES so we can host your colour palette file -->
+
   <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/embl-petrol-colours.css" type="text/css" media="screen">
-  
+  <link rel="stylesheet" href="./css/main_samelf.css">
+
   <!-- for production the above can be replaced with -->
   <!--
   <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css">
@@ -55,10 +58,12 @@
   
   <!-- custom build (lacks most of the "advanced" HTML5 support -->
   <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.custom.49274.js"></script>    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 </head>
 
-<body class="level2"><!-- add any of your classes or IDs -->
+<body class="level2" id="app"><!-- add any of your classes or IDs -->
   <div id="skip-to">
     <ul>
       <li><a href="#content">Skip to main content</a></li>
@@ -93,7 +98,7 @@
       <!-- NB: for additional title style patterns, see http://frontier.ebi.ac.uk/web/style/patterns -->
 
       <div class="grid_12 alpha" id="local-title">
-        <h1><a href="[service-url]" title="Back to [service-name] homepage">[service-name]</a></h1>
+        <h1><a href="localhost:9000/home.html" title="Back to BioSamples homepage">BioSamples Database</a></h1>
       </div>
       
       <!-- /local-title -->
@@ -102,25 +107,24 @@
       <!-- NB: if you do not have a local-search, delete the following div, and drop the class="grid_12 alpha" class from local-title above -->
       
       <div class="grid_12 omega">
-        <form id="local-search" name="local-search" action="[search-action]" method="post">
+        <form id="local-search" name="local-search" method="post" v-on:submit.prevent.stop="querySamples">
                 
           <fieldset>
           
           <div class="left">
             <label>
-            <input type="text" name="first" id="local-searchbox">
+            <input type="text" 
+		   name="first" 
+     		   id="local-searchbox"
+                   placeholder="Start your search"
+                   v-model="searchTerm"
+                   @keyup="querySamples | debounce 300">
             </label>
-            <!-- Include some example searchterms - keep them short and few! -->
-            <span class="examples">Examples: <a href="[search-url-1]">[search-text-1]</a>, <a href="[search-url-1]">[search-text-2]</a>, <a href="[search-url-1]">[search-text-3]</a></span>
+
           </div>
           
           <div class="right">
-            <input type="submit" name="submit" value="Search" class="submit">          
-            <!-- If your search is more complex than just a keyword search, you can link to an Advanced Search,
-                 with whatever features you want available -->
-            <span class="adv"><a href="../search" id="adv-search" title="Advanced">Advanced</a></span>
-          </div>                  
-          
+		  <input type="submit" name="submit" value="Search" class="submit" >
           </fieldset>
           
         </form>
@@ -133,16 +137,8 @@
       <nav>
         <ul class="grid_24" id="local-nav">
           <li class="first"><a href="#">Home</a></li>
-          <li class="active"><a href="#">Documentation</a></li>
-          <li><a href="#">Help</a></li>
-          <li class="last"><a href="#">About [service-name]</a></li>
-          <!-- If you need to include functional (as opposed to purely navigational) links in your local menu,
-               add them here, and give them a class of "functional". Remember: you'll need a class of "last" for
-               whichever one will show up last... 
-               For example: -->
-          <li class="functional last"><a href="#" class="icon icon-functional" data-icon="l">Login</a></li>
+          <li class="active last"><a href="#">Search</a></li>
           <li class="functional"><a href="#" class="icon icon-generic" data-icon="\">Feedback</a></li>
-          <li class="functional"><a href="#" class="icon icon-functional" data-icon="r">Share</a></li>
         </ul>
       </nav>    
   
@@ -157,25 +153,118 @@
           You don't need a breadcrumb trail on the homepage of your service... -->
     <nav id="breadcrumb">
        <p>
-        <a href="[service-url]">[service-name]</a> &gt; 
-        [page-title]
+        <a href="#">BioSamples</a> &gt; 
+        Search
       </p>
     </nav>
       
     <!-- Example layout containers -->
      
     <section>
-       <h2>[page-title]</h2>
-       <p>Your content</p>                    
+       <h2>BioSample Database Search interface</h2>
     </section> 
     
-    <section>
-      <h3>Level 3 heading</h3>
-      <p>More content in a full-width container.</p>
-    
-      <h4>Level 4 heading</h4>
-      <p>More content in a full-width container.</p>
+    <section class="container" v-cloak>
+      <!--<div class="row">
+        <form>
+            <fieldset>
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <input type="text" 
+                               class="form-control"
+                               placeholder="Start your search"
+                               v-model="searchTerm"
+                               @keyup="querySamples | debounce 300">
+                    </div>          
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <button type='submit' 
+                                id="search" 
+                                class="btn btn-primary"
+                                style="width: 100%"
+                                @click="querySamples">
+
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    -->
+    <div v-show="queryTerm && resultsNumber <= 0">
+        <div class="row">
+            <h3>
+                No results have been found for <i>{{queryTerm}}</i>
+                
+                <span class="small"><a href="#" @click="queryParams.useFuzzy = true" @click="querySamples()">Try for similar terms?</a></span>
+            </h3>
+        </div>
+    </div>
+    <div v-show="queryTerm && resultsNumber > 0">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-8"><h3>Search results for: <i>{{queryTerm}}<span v-if="useFuzzy" class="small"> (and related terms)</span></i></h3></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3>Refine search results</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form>
+                                <label for="fuzzy-search">Search for similar terms</label>
+                                <input type="checkbox" id="fuzzy-search" name="fuzzy-search" 
+                                       v-model="useFuzzy" 
+                                       v-on:change="querySamples"> 
+                            </form>
+                            <component is="facet" title="Content Type" 
+                                    :keys="facets.types.keys" 
+                                    :values="facets.types.vals"
+                                    facet-id="typeFilter">
+                            </component>
+                            <component is="facet" title="Organ" 
+                                    :keys="facets.organs.keys" 
+                                    :values="facets.organs.vals"
+                                    facet-id="organFilter">
+                            </component>
+                            <!--<component is="facet" title="Organism" 
+                                    :keys="facets.organisms.keys" 
+                                    :values="facets.organisms.vals"
+                                    facet-id="organismFilter">
+                            </component> -->
+                  			</div>
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <component is="pagination"
+                                           v-bind:total-results="resultsNumber"
+                                           v-bind:displayed-results="samplesToRetrieve"
+                                           style="float:right">
+                                    </component>    
+                                </div>
+                                <div class="col-md-6">
+                                    <component is="items-dropdown">
+                                    </component>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+            <div class="col-md-8">
+                <component is="biosamples-list" 
+                       v-bind:elements="biosamples">
+                </component>                        
+            </div>
+        </div>
+    </div>
     </section>
+
     <!-- End example layout containers -->
       
     </div>
@@ -247,6 +336,8 @@
   -->
   <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>  
   <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/foot.js"></script>
+  <script src="./js/searchComponents.js"></script>
+
   <!-- end scripts-->
 
   <!-- Google Analytics details... -->    

@@ -9,7 +9,7 @@
                                class="form-control"
                                placeholder="Start your search"
                                v-model="searchTerm"
-                               v-on:keyup.debounce="querySamples">
+                               @keyup="querySamples | debounce 300">
                     </div>          
                 </div>
                 <div class="col-md-2">
@@ -18,7 +18,7 @@
                                 id="search" 
                                 class="btn btn-primary"
                                 style="width: 100%"
-                                v-on:click="querySamples">
+                                @click="querySamples">
 
                             Search
                         </button>
@@ -32,7 +32,8 @@
         <div class="row">
             <h3>
                 No results have been found for <i>{{queryTerm}}</i>
-                <span class="small"><a href="#" v-on:click="useFuzzy = true" v-on:click="querySamples">Try for similar terms?</a></span>
+                
+                <span class="small"><a href="#" @click="queryParams.useFuzzy = true" @click="querySamples()">Try for similar terms?</a></span>
             </h3>
         </div>
     </div>
