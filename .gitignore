@@ -3,7 +3,8 @@ bower_components
 public/js/*.*
 public/css/*.*
 public/scripts/*.*
-
+tags
+.exclude-tags
 
 #### Single files
 .DS_Store
