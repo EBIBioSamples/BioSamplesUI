@@ -1,0 +1,71 @@
+{
+	 /*
+	 |----------------------------------------------------------------
+	 | Assets Path
+	 |----------------------------------------------------------------
+	 |
+	 | This assets path property is prefixed to all relevant assets
+	 | in your application. For example, "resources/assets/sass"
+	 | or "resources/assets/coffee." Change this if you must.
+	 |
+	 */
+
+	"assetPath": "src/main/java/uk/ac/ebi/spot/biosamples/frontend",
+
+
+	/*
+     |----------------------------------------------------------------
+     | Public Path
+     |----------------------------------------------------------------
+     |
+     | Much like assets path, this public path property is prefixed to
+     | any paths in your application, that point to the public dir.
+     | It's useful, when a server requires a unique public path.
+     |
+     */
+
+    "publicPath": "src/main/resources/public",
+
+    "css": {
+    	/*
+         |----------------------------------------------------------------
+         | CSS Output Folder
+         |----------------------------------------------------------------
+         |
+         | Generally, your source files will be stored outside of your
+         | public directory, and then compiled/merged as necessary.
+         | This property represents the public specific folder.
+         |
+         */
+
+        "outputFolder": "stylesheets",
+    },
+
+    "js": {
+    	/*
+         |----------------------------------------------------------------
+         | CSS Output Folder
+         |----------------------------------------------------------------
+         |
+         | Generally, your source files will be stored outside of your
+         | public directory, and then compiled/merged as necessary.
+         | This property represents the public specific folder.
+         |
+         */
+
+        "outputFolder": "javascript",
+    },
+
+    "browserSync": {
+    	"port": 9000,
+    	"proxy": "",
+    	"server": {
+    		"baseDir": "src/main/resources/public",
+    		"directory": true,
+    	},
+    	"open": false,
+    	"files": "src/main/resources/public/**/*"
+    }
+
+
+}

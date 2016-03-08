@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Biosamples Database</title>
+        <link rel="stylesheet" href="./css/main.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div id="app" class="container">
+            <h1>Biosample Database</h1>
+
+            <div class="row">
+                <form>
+                    <fieldset>
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <input type="text" 
+                                       class="form-control"
+                                       placeholder="Start your search"
+                                       v-model="searchTerm"
+                                       v-on="keyup: querySamples | debounce">
+                            </div>          
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <button type='submit' 
+                                        id="search" 
+                                        class="btn btn-primary"
+                                        style="width: 100%"
+                                        v-on="click: querySamples">
+
+                                    Search
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+            <!-- <results total-results="{{resultsNumber}}"
+                     displayed-results="{{samplesToRetrieve}}"
+                     filter-term="{{@filterTerm}}">
+            </results>     -->
+            <div v-show="queryTerm && resultsNumber <= 0">
+                <div class="row">
+                    <h3>
+                        No results have been found for <i>{{queryTerm}}</i>
+                        <span class="small"><a href="#" v-on="click: useFuzzy = true, click: querySamples">Try for similar terms?</a></span>
+                    </h3>
+                </div>
+            </div>
+            <div v-show="queryTerm && resultsNumber > 0">
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8"><h3>Search results for: <i>{{queryTerm}}<span v-if="useFuzzy" class="small"> (and related terms)</span></i></h3></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3>Refine search results</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <form>
+                                        <label for="fuzzy-search">Search for similar terms</label>
+                                        <input type="checkbox" id="fuzzy-search" name="fuzzy-search" 
+                                               v-model="useFuzzy" 
+                                               v-on="change: querySamples"> 
+                                    </form>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <component is="pagination"
+                                                   total-results="{{resultsNumber}}"
+                                                   displayed-results="{{samplesToRetrieve}}"
+                                                   style="float:right">
+                                            </component>    
+                                        </div>
+                                        <div class="col-md-6">
+                                            <component is="items-dropdown">
+                                            </component>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="col-md-8">
+                        
+                        <component is="biosamples-list" 
+                               elements="{{biosamples}}"
+                               filter-term="{{filterTerm}}">
+                        </component>                        
+                    </div>
+                </div>
+            </div>
+            <!-- <biosamples-table elements="{{biosamples}}"
+                        columns="{{biosamples[0].getPropertiesName()}}"
+                        filter-term="{{filterTerm}}">
+            <biosamples-table> -->
+<!--                 <div class="row">
+                <biosamples-list elements="{{biosamples}}"
+                             filter-term="{{filterTerm}}">
+                </biosamples-list>    
+            </div> -->
+                
+        </div>
+        <script src="./js/app2.js"></script>
+    </body>
+</html>
